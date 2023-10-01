@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 13:16:51 by ekordi            #+#    #+#             */
-/*   Updated: 2023/08/14 09:46:46 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/01 22:35:23 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	exit_validation(t_complete *game)
 	}
 	if (!isPathExists(game, visited))
 	{
-		printf("path doesnt exits");
+		ft_printf("path doesnt exits");
 		exit(1);
 	}
 }

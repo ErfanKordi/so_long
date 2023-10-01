@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:33:16 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:49:24 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/01 22:35:38 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	map_parsing(t_complete *game)
 		{
 			if (!strchr("10PCE\n", game->map[line][n]))
 			{
-				printf("error at line %d and coulumn %d\n", line + 1, n + 1);
+				ft_printf("error at line %d and coulumn %d\n", line + 1, n + 1);
 				exit_point(game);
 			}
 			if (game->map[line][n] == 'P')
@@ -78,7 +78,7 @@ int	wall_check(t_complete *game)
 		line++;
 	if (line != game->heightmap || n != game->widthmap)
 	{
-		printf("Surround walls error");
+		ft_printf("Surround walls error");
 		exit_point(game);
 	}
 	return (1);
@@ -88,7 +88,7 @@ int	character_check(t_complete *game)
 	if (!(game->playercount == 1 && game->Collectible >= 1
 			&& game->exitcount == 1))
 	{
-		printf("Invalid map, either player, exit or collectable count\n");
+		ft_printf("Invalid map, either player, exit or collectable count\n");
 		exit_point(game);
 	}
 	return (0);

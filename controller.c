@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 09:17:13 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:35:51 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/01 22:34:34 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_pos(t_complete *game, int x, int y)
 		return (0);
 	if (game->map[y][x] == '0')
 	{
+
+		ft_printf("Steps Taken: %i\n", game->gamecount);
 		game->map[y][x] = 'P';
 		game->PposY = y;
 		game->PposX = x;
@@ -25,6 +27,7 @@ int	check_pos(t_complete *game, int x, int y)
 	}
 	if (game->map[y][x] == 'C')
 	{
+		ft_printf("Steps Taken: %i\n", game->gamecount);
 		game->map[y][x] = 'P';
 		game->PposY = y;
 		game->PposX = x;
@@ -35,8 +38,7 @@ int	check_pos(t_complete *game, int x, int y)
 	{
 		if (game->Collectible)
 			return (0);
-		//ft_putstr_fd("\nYou Won, Congrats!\n", 1);
-		printf("\nYou Won, Congrats!\n");
+		ft_printf("\nYou Won, Congrats!\n");
 		exit_point(game);
 	}
 	return (1);
@@ -113,6 +115,5 @@ int	controller_input(int key, t_complete *game)
 		re = a_d_move(game, key);
 	if (re)
 		graphics(game);
-	printf("Steps Taken: %i\n", game->gamecount);
 	return (1);
 }

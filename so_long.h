@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:25:26 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:32:43 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/01 22:18:56 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "get_next_line/get_next_line.h"
 #include <stdbool.h>
 #include "My_C_Library/libft.h"
+#include "ft_printf/ft_printf.h"
 
 typedef struct t_so_long
 {
