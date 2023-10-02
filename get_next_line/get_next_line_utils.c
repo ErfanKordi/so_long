@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:34:17 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:29:06 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:35:38 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_bzero(void *s, size_t n)
 	unsigned char	*ptr;
 
 	i = 0;
-	ptr = (unsigned char *) s;
+	ptr = (unsigned char *)s;
 	while (i < n)
 	{
 		ptr[i] = '\0';

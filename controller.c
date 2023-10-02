@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 09:17:13 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 22:34:34 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 13:06:17 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,22 @@ int	check_pos(t_complete *game, int x, int y)
 		return (0);
 	if (game->map[y][x] == '0')
 	{
-
-		ft_printf("Steps Taken: %i\n", game->gamecount);
 		game->map[y][x] = 'P';
-		game->PposY = y;
-		game->PposX = x;
+		game->p_posy = y;
+		game->p_posx = x;
 		game->gamecount++;
 	}
 	if (game->map[y][x] == 'C')
 	{
-		ft_printf("Steps Taken: %i\n", game->gamecount);
 		game->map[y][x] = 'P';
-		game->PposY = y;
-		game->PposX = x;
+		game->p_posy = y;
+		game->p_posx = x;
 		game->gamecount++;
-		game->Collectible--;
+		game->collectiblecount--;
 	}
 	if (game->map[y][x] == 'E')
 	{
-		if (game->Collectible)
+		if (game->collectiblecount)
 			return (0);
 		ft_printf("\nYou Won, Congrats!\n");
 		exit_point(game);
@@ -51,8 +48,8 @@ int	w_s_move(t_complete *game, int key)
 	int	re;
 
 	re = 0;
-	y = game->PposY;
-	x = game->PposX;
+	y = game->p_posy;
+	x = game->p_posx;
 	if (key == 13)
 	{
 		y--;
@@ -69,8 +66,10 @@ int	w_s_move(t_complete *game, int key)
 			return (0);
 		game->map[y - 1][x] = '0';
 	}
+	ft_printf("Steps Taken: %i\n", game->gamecount);
 	return (1);
 }
+
 int	a_d_move(t_complete *game, int key)
 {
 	int	y;
@@ -78,8 +77,8 @@ int	a_d_move(t_complete *game, int key)
 	int	re;
 
 	re = 0;
-	y = game->PposY;
-	x = game->PposX;
+	y = game->p_posy;
+	x = game->p_posx;
 	if (key == 0)
 	{
 		x--;
@@ -96,8 +95,10 @@ int	a_d_move(t_complete *game, int key)
 			return (0);
 		game->map[y][x - 1] = '0';
 	}
+	ft_printf("Steps Taken: %i\n", game->gamecount);
 	return (1);
 }
+
 int	controller_input(int key, t_complete *game)
 {
 	int	re;
@@ -105,13 +106,13 @@ int	controller_input(int key, t_complete *game)
 	re = 0;
 	if (key == 53)
 		exit_point(game);
-	if (key == 13) // w
+	if (key == 13)
 		re = w_s_move(game, key);
-	if (key == 1) // s
+	if (key == 1)
 		re = w_s_move(game, key);
-	if (key == 2) // d
+	if (key == 2)
 		re = a_d_move(game, key);
-	if (key == 0) // a
+	if (key == 0)
 		re = a_d_move(game, key);
 	if (re)
 		graphics(game);

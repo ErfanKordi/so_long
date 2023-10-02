@@ -6,11 +6,33 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 13:11:17 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:43:41 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 15:11:21 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_file_type(char **argv, t_complete *game)
+{
+	char	*s;
+
+	game->fd = open(argv[1], O_RDONLY);
+	s = ft_strrchr(argv[1], '.');
+	if (s)
+	{
+		if (ft_strncmp(s, ".ber", 4) == 0)
+		{
+			if (game->fd < 0)
+			{
+				ft_putstr_fd("invalid file path", 2);
+				exit(1);
+			}
+			return (0);
+		}
+	}
+	ft_putstr_fd("Error: map needs to be a .ber file.", 2);
+	exit(1);
+}
 
 void	destroy_mlx_image(t_complete *game)
 {
@@ -55,6 +77,7 @@ void	*ft_memset(void *ptr, int value, size_t num)
 	}
 	return (ptr);
 }
+
 int	main(int argc, char **argv)
 {
 	t_complete	game;
@@ -66,7 +89,7 @@ int	main(int argc, char **argv)
 	exit_validation(&game);
 	game.mlx = mlx_init();
 	game.window = mlx_new_window(game.mlx, (game.widthmap * 60), (game.heightmap
-			* 60), "so_long");
+				* 60), "so_long");
 	graphics(&game);
 	mlx_key_hook(game.window, controller_input, &game);
 	mlx_hook(game.window, 17, 0, (void *)exit, 0);

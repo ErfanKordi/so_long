@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 18:47:53 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 12:32:59 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:35:30 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 #  define BUFFER_SIZE 1
 # endif
 
-# include <unistd.h>
+# include "../My_C_Library/libft.h"
 # include <stdlib.h>
-#include "../My_C_Library/libft.h"
-
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);

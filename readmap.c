@@ -6,35 +6,41 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 12:33:16 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 22:35:38 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 15:07:01 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	readmap(t_complete *game, char **argv)
+int	readmap(t_complete *game)
 {
 	char	*line;
 
-	game->fd = open(argv[1], O_RDONLY);
-	if (game->fd < 0)
-		return (0);
-	while ((line = get_next_line(game->fd)) != NULL)
+	line = get_next_line(game->fd);
+	if (!line)
+	{
+		ft_putstr_fd("empty map file", 2);
+		exit(1);
+	}
+	while (line != NULL)
 	{
 		game->map = realloc(game->map, sizeof(char *) * (game->heightmap + 1));
 		if (!game->map)
 		{
 			close(game->fd);
-			return (0);
+			free(line);
+			exit(1);
 		}
 		game->map[game->heightmap] = line;
 		if (game->heightmap == 0)
 			game->widthmap = ft_strlen(line) - 1;
 		game->heightmap++;
+		line = get_next_line(game->fd);
 	}
 	close(game->fd);
 	return (1);
 }
+
 int	map_parsing(t_complete *game)
 {
 	int	line;
@@ -54,7 +60,7 @@ int	map_parsing(t_complete *game)
 			if (game->map[line][n] == 'P')
 				game->playercount++;
 			else if (game->map[line][n] == 'C')
-				game->Collectible++;
+				game->collectiblecount++;
 			else if (game->map[line][n] == 'E')
 				game->exitcount++;
 			n++;
@@ -63,6 +69,7 @@ int	map_parsing(t_complete *game)
 	}
 	return (1);
 }
+
 int	wall_check(t_complete *game)
 {
 	int	line;
@@ -83,9 +90,10 @@ int	wall_check(t_complete *game)
 	}
 	return (1);
 }
+
 int	character_check(t_complete *game)
 {
-	if (!(game->playercount == 1 && game->Collectible >= 1
+	if (!(game->playercount == 1 && game->collectiblecount >= 1
 			&& game->exitcount == 1))
 	{
 		ft_printf("Invalid map, either player, exit or collectable count\n");
@@ -93,9 +101,11 @@ int	character_check(t_complete *game)
 	}
 	return (0);
 }
+
 int	read_check_map(t_complete *game, char **argv)
 {
-	readmap(game, argv);
+	check_file_type(argv, game);
+	readmap(game);
 	map_parsing(game);
 	wall_check(game);
 	character_check(game);

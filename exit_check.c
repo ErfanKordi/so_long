@@ -6,7 +6,7 @@
 /*   By: ekordi <ekordi@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 13:16:51 by ekordi            #+#    #+#             */
-/*   Updated: 2023/10/01 22:35:23 by ekordi           ###   ########.fr       */
+/*   Updated: 2023/10/02 12:47:06 by ekordi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	player_position(t_complete *game, int *n_ptr, int *line_ptr)
 		line++;
 	}
 }
-void	floodFillUtil(t_complete *game, int x, int y, int visited[100][100])
+
+void	floodfillutil(t_complete *game, int x, int y, int visited[100][100])
 {
 	int	dx[4];
 	int	dy[4];
@@ -61,11 +62,11 @@ void	floodFillUtil(t_complete *game, int x, int y, int visited[100][100])
 		if (new_x >= 0 && new_x < game->widthmap && new_y >= 0
 			&& new_y < game->heightmap && game->map[new_y][new_x] != '1'
 			&& !visited[new_y][new_x])
-			floodFillUtil(game, new_x, new_y, visited);
+			floodfillutil(game, new_x, new_y, visited);
 	}
 }
 
-int	isPathExists(t_complete *game, int visited[100][100])
+int	ispathexists(t_complete *game, int visited[100][100])
 {
 	int	start_x;
 	int	start_y;
@@ -75,7 +76,7 @@ int	isPathExists(t_complete *game, int visited[100][100])
 	start_x = -1;
 	start_y = -1;
 	player_position(game, &start_x, &start_y);
-	floodFillUtil(game, start_x, start_y, visited);
+	floodfillutil(game, start_x, start_y, visited);
 	i = 0;
 	while (i < game->heightmap)
 	{
@@ -108,7 +109,7 @@ void	exit_validation(t_complete *game)
 		}
 		i++;
 	}
-	if (!isPathExists(game, visited))
+	if (!ispathexists(game, visited))
 	{
 		ft_printf("path doesnt exits");
 		exit(1);
